@@ -27,6 +27,7 @@ class PostCategoryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
     protected static ?string $navigationGroup = 'CMS';
     protected static ?string $label = 'Category';
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
