@@ -43,6 +43,7 @@ class FormResource extends Resource
                 Repeater::make('orders')
                     ->schema([
                         Select::make('product')
+                            ->searchable()
                             ->options(fn () => Product::all()->pluck('name', 'name'))
                             ->required(),
                         TextInput::make('qty')->required(),
@@ -65,7 +66,9 @@ class FormResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,7 +77,7 @@ class FormResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
-            ]);
+            ])->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array
